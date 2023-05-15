@@ -14,6 +14,17 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+app.get(
+  "/now",
+  function (req, res, next) {
+    req.time = new Date().toString();
+    next();
+  },
+  function (req, res) {
+    res.json({ time: req.time });
+  }
+);
+
 // app.get("/json", (req, res) => {
 //   if (process.env.MESSAGE_STYLE === "uppercase") {
 //     res.json({ message: "HELLO JSON" });
