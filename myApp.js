@@ -9,6 +9,16 @@ app.use("/", (req, res, next) => {
   next();
 });
 
+app.get("/:word/echo", (req, res) => {
+  res.json({ echo: req.params.word });
+});
+
+//app.route(path).get(handler).post(handler);
+
+app.get("/name", (req, res) => {
+  res.json({ name: res.query.first + " " + res.query.last });
+});
+
 console.log("Hello World");
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
