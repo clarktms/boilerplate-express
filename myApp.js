@@ -1,5 +1,6 @@
 let express = require("express");
 let app = express();
+let bodyParser = require("body-parser");
 require("dotenv").config();
 
 app.use("/public", express.static(__dirname + "/public"));
@@ -14,10 +15,19 @@ app.get("/:word/echo", (req, res) => {
 });
 
 //app.route(path).get(handler).post(handler);
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/name", (req, res) => {
-  res.json({ name: res.query.first + " " + res.query.last });
-});
+app
+  .route("/name")
+  .get((req, res) => {
+    res.json({ name: req.query.first + " " + req.query.last });
+  })
+  .post((req, res) => {
+    res.json({ name: req.body.first + " " + req.body.last });
+  })
+  .put((req, res) => {
+    res.send(null);
+  });
 
 console.log("Hello World");
 app.get("/", (req, res) => {
